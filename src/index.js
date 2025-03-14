@@ -37,7 +37,7 @@ const questions = [
   {
     type: 'confirm',
     name: 'husky',
-    message: '是否使用husky来在git hook中做检测？',
+    message: '是否启用 Husky 来管理 Git Hooks？',
     default: true,
   },
 ];
