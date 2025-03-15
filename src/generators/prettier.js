@@ -70,7 +70,7 @@ export async function updatePrettierConfig() {
   // 添加 format 脚本
   packageJson.scripts = {
     ...(packageJson.scripts ?? {}),
-    format: 'prettier --write',
+    format: 'prettier . --write',
   };
   await setPackageJson(packageJson);
 }

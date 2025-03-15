@@ -76,7 +76,7 @@ describe('generatePrettierConfig', () => {
     expect(utils.getPackageJson).toHaveBeenCalled();
     expect(utils.setPackageJson).toHaveBeenCalledWith({
       scripts: {
-        format: 'prettier --write',
+        format: 'prettier . --write',
       },
     });
   });
