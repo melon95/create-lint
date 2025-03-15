@@ -1,5 +1,5 @@
 import { writeFile } from 'fs/promises';
-import { spawnPromise } from '../utils';
+import { spawnPromise, getPackageJson, setPackageJson } from '../utils';
 
 const prettierConfig = {
   semi: true,
@@ -24,6 +24,9 @@ export async function generatePrettierConfig(packageManager) {
       '.prettierrc.json',
       JSON.stringify(prettierConfig, null, 2)
     );
+
+    // 更新 package.json
+    await updatePrettierConfig();
 
     console.log('✅ Prettier 配置文件生成成功');
   } catch (error) {
@@ -59,4 +62,15 @@ export function buildPrettierCommand(pkgManager) {
     command,
     args,
   };
+}
+
+export async function updatePrettierConfig() {
+  // 更新 package.json
+  const packageJson = await getPackageJson();
+  // 添加 format 脚本
+  packageJson.scripts = {
+    ...(packageJson.scripts ?? {}),
+    format: 'prettier --write',
+  };
+  await setPackageJson(packageJson);
 }

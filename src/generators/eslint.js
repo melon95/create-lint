@@ -1,4 +1,4 @@
-import { spawnPromise } from '../utils';
+import { spawnPromise, getPackageJson, setPackageJson } from '../utils';
 
 export async function generateEslintConfig(packageManager) {
   try {
@@ -8,6 +8,9 @@ export async function generateEslintConfig(packageManager) {
 
     // 使用选择的包管理器初始化ESLint配置
     await spawnPromise(command, args);
+
+    // 更新 package.json
+    await updateEslintConfig();
 
     console.log('✅ ESLint 配置文件生成成功');
   } catch (error) {
@@ -37,4 +40,15 @@ export function buildEslintCommand(packageManager) {
       break;
   }
   return { command, args };
+}
+
+export async function updateEslintConfig() {
+  // 更新 package.json
+  const packageJson = await getPackageJson();
+  // 添加 format 脚本
+  packageJson.scripts = {
+    ...(packageJson.scripts ?? {}),
+    lint: 'eslint --fix',
+  };
+  await setPackageJson(packageJson);
 }

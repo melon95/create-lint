@@ -8,6 +8,10 @@ import * as utils from '../../src/utils.js';
 // Mock utils
 vi.mock('../../src/utils.js', () => ({
   spawnPromise: vi.fn().mockResolvedValue(undefined),
+  getPackageJson: vi.fn().mockResolvedValue({
+    scripts: {},
+  }),
+  setPackageJson: vi.fn().mockResolvedValue(undefined),
 }));
 // Mock fs/promises
 vi.mock('fs/promises', () => {
@@ -64,5 +68,16 @@ describe('generatePrettierConfig', () => {
     await expect(generatePrettierConfig('npm')).rejects.toThrow(
       '生成 Prettier 配置文件失败: 命令执行失败'
     );
+  });
+
+  it('应该正确更新package.json中的format脚本', async () => {
+    await generatePrettierConfig('npm');
+
+    expect(utils.getPackageJson).toHaveBeenCalled();
+    expect(utils.setPackageJson).toHaveBeenCalledWith({
+      scripts: {
+        format: 'prettier --write',
+      },
+    });
   });
 });

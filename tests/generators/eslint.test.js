@@ -8,6 +8,8 @@ import * as utils from '../../src/utils.js';
 // Mock utils
 vi.mock('../../src/utils.js', () => ({
   spawnPromise: vi.fn().mockResolvedValue(undefined),
+  getPackageJson: vi.fn().mockResolvedValue({ scripts: {} }),
+  setPackageJson: vi.fn().mockResolvedValue(undefined),
 }));
 
 describe('generateEslintConfig', () => {
@@ -58,5 +60,16 @@ describe('generateEslintConfig', () => {
     await expect(generateEslintConfig('npm')).rejects.toThrow(
       '生成 ESLint 配置文件失败: 命令执行失败'
     );
+  });
+
+  it('应该正确更新package.json中的lint脚本', async () => {
+    await generateEslintConfig('npm');
+
+    expect(utils.getPackageJson).toHaveBeenCalled();
+    expect(utils.setPackageJson).toHaveBeenCalledWith({
+      scripts: {
+        lint: 'eslint --fix',
+      },
+    });
   });
 });
