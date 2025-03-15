@@ -1,11 +1,11 @@
 {
-  "name": "lint-master",
+  "name": "create-lint",
   "version": "0.0.1",
   "description": "一键lint规则配置工具",
   "main": "src/index.js",
   "type": "module",
   "bin": {
-    "lint-master": "src/index.js"
+    "create-lint": "src/index.js"
   },
   "scripts": {
     "start": "node src/index.js",
@@ -18,7 +18,7 @@
     "eslint",
     "stylelint",
     "commitlint",
-    "lint-master"
+    "create-lint"
   ],
   "author": "",
   "license": "MIT",

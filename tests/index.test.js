@@ -22,7 +22,7 @@ vi.mock('chalk', () => ({
   },
 }));
 
-describe('lint-master配置工具', () => {
+describe('create-lint配置工具', () => {
   beforeEach(() => {
     // Clear all mocks before each test
     vi.clearAllMocks();

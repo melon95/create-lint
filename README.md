@@ -1,4 +1,4 @@
-# lint-master
+# create-lint
 
 一个简单易用的代码规范配置工具，帮助你快速在项目中集成 ESLint、Stylelint、Commitlint、Prettier 等代码规范工具。
 
@@ -27,7 +27,7 @@
 无需安装，直接使用：
 
 ```bash
-npx lint-master
+npx create-lint
 ```
 
 ### 2. 全局安装
@@ -36,10 +36,10 @@ npx lint-master
 
 ```bash
 # 使用 npm 全局安装
-npm install -g lint-master
+npm install -g create-lint
 
 # 安装后使用
-lint-master
+create-lint
 ```
 
 ### 2. 按提示选择配置

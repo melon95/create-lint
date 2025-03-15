@@ -43,7 +43,7 @@ const questions = [
 ];
 
 async function init() {
-  console.log(chalk.blue('欢迎使用 lint-master 配置工具！'));
+  console.log(chalk.blue('欢迎使用 create-lint 配置工具！'));
 
   try {
     const answers = await inquirer.prompt(questions);
