@@ -1,7 +1,6 @@
 import { writeFile } from 'fs/promises';
 
-export async function generateEditorConfigFile() {
-  const editorConfigContent = `# EditorConfig is awesome: https://EditorConfig.org
+const editorConfigContent = `# EditorConfig is awesome: https://EditorConfig.org
 
 # top-most EditorConfig file
 root = true
@@ -27,6 +26,7 @@ indent_size = 4
 indent_style = tab
 `;
 
+export async function generateEditorConfigFile() {
   try {
     console.log('🚀 正在生成.editorconfig 文件...');
     await writeFile('.editorconfig', editorConfigContent);

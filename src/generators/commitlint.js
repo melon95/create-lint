@@ -1,8 +1,7 @@
-import fs from 'fs/promises';
-import { spawn } from 'child_process';
+import { writeFile } from 'fs/promises';
+import { getPackageJson, spawnPromise, setPackageJson } from '../utils';
 
-export async function generateCommitlintConfig(packageManager) {
-  const commitlintConfig = `{
+const commitlintConfig = `{
   "extends": ["@commitlint/config-conventional"],
   "prompt": {
     "messages": {
@@ -106,93 +105,83 @@ export async function generateCommitlintConfig(packageManager) {
 }
 `;
 
-  const scripts = {
-    commit: 'cz',
-  };
+const scripts = {
+  commit: 'cz',
+};
 
-  const czConfig = {
-    commitizen: {
-      path: 'cz-conventional-changelog',
-    },
-  };
+const czConfig = {
+  commitizen: {
+    path: 'cz-conventional-changelog',
+  },
+};
 
+export async function generateCommitlintConfig(packageManager) {
   try {
     console.log('🚀 正在生成 Commitlint 配置文件...');
-    // 安装依赖
-    const dependencies = [
-      '@commitlint/cli',
-      '@commitlint/config-conventional',
-      '@commitlint/cz-commitlint',
-      'commitizen',
-      'cz-conventional-changelog',
-    ];
-
     // 根据包管理器构建安装命令
-    let installCmd;
-    let installArgs;
-
-    switch (packageManager) {
-      case 'pnpm':
-        installCmd = 'pnpm';
-        installArgs = ['add', '--save-dev', ...dependencies];
-        break;
-      case 'yarn':
-        installCmd = 'yarn';
-        installArgs = ['add', '--dev', ...dependencies];
-        break;
-      case 'bun':
-        installCmd = 'bun';
-        installArgs = ['add', '--dev', ...dependencies];
-        break;
-      case 'npm':
-      default:
-        installCmd = 'npm';
-        installArgs = ['install', '--save-dev', ...dependencies];
-        break;
-    }
-
-    const installDeps = spawn(installCmd, installArgs, {
-      stdio: 'inherit',
-      shell: true,
-    });
-
-    await new Promise((resolve, reject) => {
-      installDeps.on('close', (code) => {
-        if (code === 0) {
-          resolve();
-        } else {
-          reject(new Error(`依赖安装失败，退出码: ${code}`));
-        }
-      });
-
-      installDeps.on('error', (error) => {
-        reject(new Error(`依赖安装失败: ${error.message}`));
-      });
-    });
-
-    // 写入 .commitlintrc.json 文件
-    await fs.writeFile('.commitlintrc.json', commitlintConfig);
-
-    // 更新 package.json
-    const packageJsonPath = 'package.json';
-    const packageJson = JSON.parse(await fs.readFile(packageJsonPath, 'utf8'));
-
-    // 添加 commit 脚本
-    packageJson.scripts = {
-      ...packageJson.scripts,
-      ...scripts,
-    };
-
-    // 添加 commitizen 配置
-    packageJson.config = {
-      ...(packageJson.config ?? {}),
-      ...czConfig,
-    };
-
-    await fs.writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2));
+    const { command, args } = buildCommitlintCommand(packageManager);
+    // 执行安装命令
+    await spawnPromise(command, args);
+    // 更新 commitlint 配置
+    await updateCommitlintConfig();
 
     console.log('✅ Commitlint 配置文件生成成功');
   } catch (error) {
     throw new Error(`生成 Commitlint 配置文件失败: ${error.message}`);
   }
+}
+
+export function buildCommitlintCommand(packageManager) {
+  // 安装依赖
+  const dependencies = [
+    '@commitlint/cli',
+    '@commitlint/config-conventional',
+    '@commitlint/cz-commitlint',
+    'commitizen',
+    'cz-conventional-changelog',
+  ];
+
+  // 根据包管理器构建安装命令
+  let command;
+  let args;
+
+  switch (packageManager) {
+    case 'pnpm':
+      command = 'pnpm';
+      args = ['add', '--save-dev'];
+      break;
+    case 'yarn':
+      command = 'yarn';
+      args = ['add', '--dev'];
+      break;
+    case 'bun':
+      command = 'bun';
+      args = ['add', '--dev'];
+      break;
+    case 'npm':
+    default:
+      command = 'npm';
+      args = ['install', '--save-dev'];
+      break;
+  }
+  return { command, args: [...args, ...dependencies] };
+}
+
+export async function updateCommitlintConfig() {
+  // 写入 .commitlintrc.json 文件
+  await writeFile('.commitlintrc.json', commitlintConfig);
+
+  // 更新 package.json
+  const packageJson = await getPackageJson();
+  // 添加 commit 脚本
+  packageJson.scripts = {
+    ...packageJson.scripts,
+    ...scripts,
+  };
+  // 添加 commitizen 配置
+  packageJson.config = {
+    ...(packageJson.config ?? {}),
+    ...czConfig,
+  };
+  await setPackageJson(packageJson);
 }
