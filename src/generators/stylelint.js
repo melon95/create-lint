@@ -1,4 +1,4 @@
-import { spawnPromise } from '../utils';
+import { spawnPromise } from '../utils.js';
 
 export async function generateStylelintConfig(packageManager) {
   try {

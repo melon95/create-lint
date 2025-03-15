@@ -1,4 +1,4 @@
-import { spawnPromise, getPackageJson, setPackageJson } from '../utils';
+import { spawnPromise, getPackageJson, setPackageJson } from '../utils.js';
 
 export async function generateEslintConfig(packageManager) {
   try {

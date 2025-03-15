@@ -1,5 +1,5 @@
 import { writeFile } from 'fs/promises';
-import { spawnPromise, getPackageJson, setPackageJson } from '../utils';
+import { spawnPromise, getPackageJson, setPackageJson } from '../utils.js';
 
 const prettierConfig = {
   semi: true,

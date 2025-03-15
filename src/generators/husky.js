@@ -1,6 +1,6 @@
 import { writeFile } from 'fs/promises';
 import { join } from 'path';
-import { getPackageJson, setPackageJson, spawnPromise } from '../utils';
+import { getPackageJson, setPackageJson, spawnPromise } from '../utils.js';
 
 export async function setupHusky(lintTools, packageManager) {
   try {

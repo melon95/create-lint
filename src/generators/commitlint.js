@@ -1,5 +1,5 @@
 import { writeFile } from 'fs/promises';
-import { getPackageJson, spawnPromise, setPackageJson } from '../utils';
+import { getPackageJson, spawnPromise, setPackageJson } from '../utils.js';
 
 const commitlintConfig = `{
   "extends": ["@commitlint/config-conventional"],
