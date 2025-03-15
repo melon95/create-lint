@@ -144,7 +144,7 @@ export async function generateCommitlintConfig(packageManager) {
         installCmd = 'bun';
         installArgs = ['add', '--dev', ...dependencies];
         break;
-      case 'nnpm':
+      case 'npm':
       default:
         installCmd = 'npm';
         installArgs = ['install', '--save-dev', ...dependencies];

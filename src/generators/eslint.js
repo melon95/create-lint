@@ -22,7 +22,7 @@ export async function generateEslintConfig(packageManager) {
       case 'npm':
       default:
         command = 'npm';
-        args = ['init', '@eslint/config', '--yes'];
+        args = ['init', '@eslint/config'];
         break;
     }
 
