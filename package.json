@@ -20,8 +20,12 @@
     "commitlint",
     "create-lint"
   ],
-  "author": "",
+  "author": "melon95",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/melon95/create-lint"
+  },
   "dependencies": {
     "chalk": "^5.3.0",
     "inquirer": "^9.2.12"

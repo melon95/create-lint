@@ -22,12 +22,18 @@
 
 ## 使用方式
 
-### 1. 使用 npx（推荐）
+### 1. 命令行（推荐）
 
-无需安装，直接使用：
+使用 `create-lint` 只需要几个简单的步骤：
+
+1. 在你的项目中运行：
 
 ```bash
 npx create-lint
+# 或者使用其他包管理器
+pnpm create lint
+yarn create lint
+bun create lint
 ```
 
 ### 2. 全局安装
@@ -48,6 +54,8 @@ create-lint
 2. 选择需要配置的代码规范工具
 3. 选择是否使用 husky 配置 Git Hooks
 
+![image.png](https://p0-xtjj-private.juejin.cn/tos-cn-i-73owjymdk6/0d004f8ec9004670b934d8a91834cb88~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAgaWRpZA==:q75.awebp?policy=eyJ2bSI6MywidWlkIjoiNDM3MTMxMzk2NDM2NzQ4NSJ9&rk3s=e9ecf3d6&x-orig-authkey=f32326d3454f2ac7e96d3d06cdbb035152127018&x-orig-expires=1742195555&x-orig-sign=PWCcDsRgoPs8LJpd1bOsHDvJp5U%3D)
+
 ### 3. 开始使用
 
 配置完成后，你可以：
@@ -64,9 +72,9 @@ create-lint
   npm run format
   ```
 
-- 使用 Commitlint 检查提交信息：
+- 使用 Commitlint 规范提交信息：
   ```bash
-  git commit
+  npm run commit
   ```
 
 ## 配置文件
