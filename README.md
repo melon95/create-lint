@@ -50,11 +50,11 @@ create-lint
 
 ### 2. 按提示选择配置
 
-1. 选择包管理器
-2. 选择需要配置的代码规范工具
-3. 选择是否使用 husky 配置 Git Hooks
+1. 包管理器
+2. 需要配置的代码规范工具
+3. 是否启用 Husky 来管理 Git Hooks？
 
-![image.png](https://p0-xtjj-private.juejin.cn/tos-cn-i-73owjymdk6/0d004f8ec9004670b934d8a91834cb88~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAgaWRpZA==:q75.awebp?policy=eyJ2bSI6MywidWlkIjoiNDM3MTMxMzk2NDM2NzQ4NSJ9&rk3s=e9ecf3d6&x-orig-authkey=f32326d3454f2ac7e96d3d06cdbb035152127018&x-orig-expires=1742195555&x-orig-sign=PWCcDsRgoPs8LJpd1bOsHDvJp5U%3D)
+![image.png](https://pub-356b86e3d8214f9b93839840fd695112.r2.dev/resources/iShot_2025-03-16_15.46.18.png)
 
 ### 3. 开始使用
 
